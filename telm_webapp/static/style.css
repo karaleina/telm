@@ -1,0 +1,58 @@
+html, body, h1, h2, h3, h4, p, div, ol, ul, li {
+	padding: 0;
+	border: 0;
+	margin: 0;
+	font: inherit;
+	font-size: 100%;
+	font-weight: normal;
+  font-style: normal;
+}
+
+img {
+	max-width: 100%;
+}
+
+a {
+	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-size: 1em;/*16px*/
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+}
+
+p {
+	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-size: 1em;/*16px*/
+}
+
+a:hover {
+	color:  #0000cc;
+	text-decoration: underline;
+}
+
+h1 {
+	font-size: 4.375em;/*70px*/
+	font-weight: bold;
+	text-align: center;
+	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+}
+
+h2 {
+	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-size: 1.875em;/*30px*/
+	font-weight: 80;
+	text-align: center;
+	color: white;
+	width: 70%;
+	margin: 0 auto 0 auto;
+}
+
+
+h3 {
+	font-size: 1.75em;/*28px*/
+	font-weight: normal;
+	text-align: center;
+	border-bottom: 1px solid #555555;
+	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	margin: 20px 0 20px 0;
+}

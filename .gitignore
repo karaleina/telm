@@ -1,0 +1,10 @@
+# Nie wrzucamy do repozytorium:
+
+# Plików z kodem pośrednim Pythona
+*.pyc
+
+# Bazy danych
+*.sqlite
+
+# Plików projektów PyCharm
+.idea/**

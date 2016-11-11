@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <title>TELM</title>
+      <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+      <h1>Lista przebiegów EKG z przykladowej bazy danych: </h1>
+      <table>
+        <thead>
+          <tr><th>Nazwa</th><th>Czas</th></tr>
+        </thead>
+        <tbody>
+          <!-- Jinja - język szablonów zintegrowany z Flaskiem -->
+          {% for recording in recordings %}
+            <tr><td>{{ recording.name }}</td><td>{{ recording.timestamp }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </body>
+</html>
