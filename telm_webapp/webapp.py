@@ -23,12 +23,19 @@ db_in_app = db
 # @app.route(<url>) - Widok dla konkretnego adresu url
 # "/" oznacza url (widok) główny
 @app.route("/")
-def hello():
+def recording_list():
     # Pobiera z bazy wszystkie rekordy ECG i zwraca jako tablica obiektów tej samej klasy
     # Query to zapytanie do bazy danych
     recordings = ECGRecording.query.all()
     # Renderuje html na podstawie szablonu
     return render_template('main.html', recordings=recordings)
+
+@app.route("/recordings/<int:recording_id>")
+def show_recording(recording_id):
+    # Tutaj pobieram z bazy rekord o zadanym id i dostaję obiekt
+    recording = ECGRecording.query.get(recording_id)
+    return render_template('ecg_view.html', recording=recording)
+
 
 # Uruchamia aplikację, jeśli plik nie jest importowany, tylko uruchamiany
 if __name__ == "__main__":
