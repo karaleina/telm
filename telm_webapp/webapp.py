@@ -40,3 +40,4 @@ def show_recording(recording_id):
 # Uruchamia aplikację, jeśli plik nie jest importowany, tylko uruchamiany
 if __name__ == "__main__":
     app.run()
+ 
