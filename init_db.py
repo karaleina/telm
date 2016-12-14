@@ -15,11 +15,22 @@ from telm_webapp.webapp import db_in_app
 # Stworzenie tabel bazodanowych
 db_in_app.create_all()
 
+patient = ECGPatient(name='Magda', surname = 'Jaka', pesel = '93071612312')
+
+recording1 = ECGRecording(name='Recording #2', timestamp=datetime(2015, 6, 12))
+recording2 = ECGRecording(name='Recording #1', timestamp=datetime(2013, 5, 24))
+
+recording1.plots.append(ECGPlot(url='documents/plik1.log'))
+recording2.plots.append(ECGPlot(url='documents/plik2.log'))
+
+patient.recordings.append(recording1)
+patient.recordings.append(recording2)
+
 # Przykładowe wpisy do bazy danych
 initial_recordings = [
-    ECGRecording(name='Recording #1', timestamp=datetime(2013, 5, 24)),
-    ECGRecording(name='Recording #2', timestamp=datetime(2015, 6, 12))
+	patient
 ]
+
 
 # Pętla po nagraniach, która dodaje kolejne rekordy do sesji (transakcji)
 #  i jak już wszystkie doda, to robi commit i dodaje do bazy danych
