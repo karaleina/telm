@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Ten skrypt tworzy bazę danych. Jest wywoływany tylko raz.
+import os
 
 # klasa reprezentująca datę wraz z godziną
 from datetime import datetime
@@ -18,13 +19,16 @@ db_in_app.create_all()
 patient = ECGPatient(name='Magda', surname = 'Jaka', pesel = '93071612312')
 
 recording1 = ECGRecording(name='Recording #2', timestamp=datetime(2015, 6, 12))
-recording2 = ECGRecording(name='Recording #1', timestamp=datetime(2013, 5, 24))
 
-recording1.plots.append(ECGPlot(url='documents/plik1.log'))
-recording2.plots.append(ECGPlot(url='documents/plik2.log'))
+path = "downloads/"
+allFiles = os.listdir(path)
 
+res = [k for k in allFiles if 'plot' in k]
+
+for i in res:
+	recording1.plots.append(ECGPlot(url=path + i))	
+	
 patient.recordings.append(recording1)
-patient.recordings.append(recording2)
 
 # Przykładowe wpisy do bazy danych
 initial_recordings = [
