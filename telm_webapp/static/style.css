@@ -1,3 +1,5 @@
+/* main.css */
+
 html, body, h1, h2, h3, h4, p, div, ol, ul, li {
 	padding: 0;
 	border: 0;
@@ -5,7 +7,7 @@ html, body, h1, h2, h3, h4, p, div, ol, ul, li {
 	font: inherit;
 	font-size: 100%;
 	font-weight: normal;
-  font-style: normal;
+    font-style: normal;
 }
 
 img {
@@ -47,6 +49,9 @@ h2 {
 	margin: 0 auto 0 auto;
 }
 
+h2 strong {
+	front-weight: 80;
+}
 
 h3 {
 	font-size: 1.75em;/*28px*/
@@ -55,4 +60,29 @@ h3 {
 	border-bottom: 1px solid #555555;
 	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
 	margin: 20px 0 20px 0;
+}
+
+
+header {
+	background: #999999;
+	background: radial-gradient( circle, #000077, #000033);
+	padding: 20px 0 20px 0;
+	color: white;
+}
+
+
+footer {
+	margin-top: 8px;
+	background: radial-gradient( circle, #000077, #000033);
+	text-align: center;
+	padding: 20px 0;
+}
+
+footer p a {
+	color: white;
+}
+
+footer p a:hover {
+	text-decoration: underline;
+	color: white;
 }

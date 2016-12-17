@@ -52,12 +52,12 @@ class ECGPatient(db.Model):
         self.name = name
         self.surname = surname
         self.pesel = pesel
-		
+
     # Dzięki tej metodzie można wypisywać obiekty na konsolę jako string
     def __repr__(self):
         return '<ECGPacjent %s>' % self.name
-        
-        
+
+
         # Klasa ECGRecording, która dziedziczy po klasie Model
 class ECGPlot(db.Model):
     __tablename__ = 'ecgplot'
@@ -77,11 +77,10 @@ class ECGPlot(db.Model):
     # Konstruktor który służy do dodawania rzeczy do bazy danych
     def __init__(self, url):
         self.url = url
-        
+
 
     # Dzięki tej metodzie można wypisywać obiekty na konsolę jako string
     def __repr__(self):
         return '<ECGPlot %s>' % self.url
 
-        
-        
+

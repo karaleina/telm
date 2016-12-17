@@ -8,11 +8,11 @@
         <script src="/static/dygraph-combined.js"></script>
     </head>
     <body>
-        <h1>Przebieg № {{ recording.id }}</h1>
+        <header><h1>Przebieg № {{ recording.id }}</h1></header>
         <p>Nazwa przebiegu: {{ recording.name }}</p>
         <p>Czas badania: {{ recording.timestamp }}</p>
 
-        <div id="graph"></div>
+        <div id="graph" style="width: 100%"></div>
 
         <script>
             new Dygraph(document.getElementById("graph"),
