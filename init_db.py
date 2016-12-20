@@ -19,6 +19,7 @@ db_in_app.create_all()
 patient = ECGPatient(name='Magda', surname = 'Jaka', pesel = '93071612312')
 
 recording1 = ECGRecording(name='Recording #2', timestamp=datetime(2015, 6, 12))
+recording2 = ECGRecording(name='Recording #3', timestamp=datetime(2015, 6, 14))
 
 path = "downloads/"
 allFiles = os.listdir(path)
@@ -29,6 +30,7 @@ for i in res:
 	recording1.plots.append(ECGPlot(url=path + i))	
 	
 patient.recordings.append(recording1)
+patient.recordings.append(recording2)
 
 # Przykładowe wpisy do bazy danych
 initial_recordings = [

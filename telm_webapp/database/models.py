@@ -20,6 +20,7 @@ class ECGRecording(db.Model):
     timestamp = db.Column(db.DateTime())
     id_patient = db.Column(db.Integer, db.ForeignKey('ecgpatient.id'))
     plots = db.relationship("ECGPlot")
+
     # Konstruktor który służy do dodawania rzeczy do bazy danych
     def __init__(self, name, timestamp):
         self.name = name
@@ -44,7 +45,7 @@ class ECGPatient(db.Model):
     name = db.Column(db.String(1024))
     surname = db.Column(db.String(1024))
     pesel = db.Column(db.String(11))
-    recordings = db.relationship("ECGRecording")
+    recordings = db.relationship("ECGRecording", backref="patient")
 
 
     # Konstruktor który służy do dodawania rzeczy do bazy danych
