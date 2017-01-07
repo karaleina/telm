@@ -14,7 +14,7 @@
         <tbody>
           <!-- Jinja - język szablonów zintegrowany z Flaskiem -->
           {% for recording in recordings %}
-            <tr><td><a href="/recordings/{{recording.id}}" target="_blank">{{ recording.name }}</a></td><td>{{ recording.timestamp }}</td></tr>
+            <tr><td><a href="/recordings/{{recording.id}}/view" target="_blank">{{ recording.name }}</a></td><td>{{ recording.timestamp }}</td></tr>
           {% endfor %}
         </tbody>
       </table>

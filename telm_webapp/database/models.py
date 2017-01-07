@@ -18,13 +18,21 @@ class ECGRecording(db.Model):
 
     # Kolumna typu czas (np data badania)
     timestamp = db.Column(db.DateTime())
+
+    # Kolumna typu string (to może być nazwa, opis)
+    url = db.Column(db.String(1024))
+
+    # Kolumna typu integer - liczba plotów
+    plot_count = db.Column(db.Integer)
+
     id_patient = db.Column(db.Integer, db.ForeignKey('ecgpatient.id'))
-    plots = db.relationship("ECGPlot")
 
     # Konstruktor który służy do dodawania rzeczy do bazy danych
-    def __init__(self, name, timestamp):
+    def __init__(self, name, timestamp, url, plot_count):
         self.name = name
         self.timestamp = timestamp
+        self.url = url
+        self.plot_count = plot_count
 
     # Dzięki tej metodzie można wypisywać obiekty na konsolę jako string
     def __repr__(self):
@@ -47,7 +55,6 @@ class ECGPatient(db.Model):
     pesel = db.Column(db.String(11))
     recordings = db.relationship("ECGRecording", backref="patient")
 
-
     # Konstruktor który służy do dodawania rzeczy do bazy danych
     def __init__(self, name, surname, pesel):
         self.name = name
@@ -57,31 +64,3 @@ class ECGPatient(db.Model):
     # Dzięki tej metodzie można wypisywać obiekty na konsolę jako string
     def __repr__(self):
         return '<ECGPacjent %s>' % self.name
-
-
-        # Klasa ECGRecording, która dziedziczy po klasie Model
-class ECGPlot(db.Model):
-    __tablename__ = 'ecgplot'
-
-    # Pola w klasie, czyli w tym przypadku kolumny w tabeli:
-
-    # Kolumna typu integer - identyfikator danego przebiegu EKG -
-    # klucz główny "primary key"
-    id = db.Column(db.Integer, primary_key=True)
-
-    # Kolumna typu string (to może być nazwa, opis)
-    url = db.Column(db.String(1024))
-    id_recording = db.Column(db.Integer, db.ForeignKey('ecgrecording.id'))
-
-
-
-    # Konstruktor który służy do dodawania rzeczy do bazy danych
-    def __init__(self, url):
-        self.url = url
-
-
-    # Dzięki tej metodzie można wypisywać obiekty na konsolę jako string
-    def __repr__(self):
-        return '<ECGPlot %s>' % self.url
-
-

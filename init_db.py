@@ -18,29 +18,21 @@ db_in_app.create_all()
 
 patient = ECGPatient(name='Magda', surname = 'Jaka', pesel = '93071612312')
 
-recording1 = ECGRecording(name='Recording #2', timestamp=datetime(2015, 6, 12))
-recording2 = ECGRecording(name='Recording #3', timestamp=datetime(2015, 6, 14))
+recordings_directory = "downloads/"
+allFiles = os.listdir(recordings_directory)
 
-path = "downloads/"
-allFiles = os.listdir(path)
+recording_paths = [k for k in allFiles if '.dat' in k]
 
-res = [k for k in allFiles if 'plot' in k]
-
-for i in res:
-	recording1.plots.append(ECGPlot(url=path + i))	
-	
-patient.recordings.append(recording1)
-patient.recordings.append(recording2)
-
-# Przykładowe wpisy do bazy danych
-initial_recordings = [
-	patient
-]
+for recording_path in recording_paths:
+    recording = ECGRecording(
+        name=recording_path,
+        timestamp=datetime(2015, 6, 12),
+        url=os.path.join(recordings_directory, recording_path),
+        plot_count=2)
+    patient.recordings.append(recording)
 
 
 # Pętla po nagraniach, która dodaje kolejne rekordy do sesji (transakcji)
 #  i jak już wszystkie doda, to robi commit i dodaje do bazy danych
-for recording in initial_recordings:
-    db_in_app.session.add(recording)
-
+db_in_app.session.add(patient)
 db_in_app.session.commit()
