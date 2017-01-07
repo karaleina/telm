@@ -27,7 +27,7 @@
             </div>
             <div class="ui input">
                 <span style="margin: auto; padding-right: 5px">Do:</span>
-                <input type="text" id="end-time-picker" class="duration-picker" value="1000">
+                <input type="text" id="end-time-picker" class="duration-picker" value="30">
             </div>
 
             <button id="change-time-range-button">Wczytaj</button>
@@ -40,5 +40,9 @@
             $('.duration-picker').duration_picker();
             initClickOnDurationPickers();
         </script>
+
+        <div>
+            {{ recording.comment.replace("\n\n", "\n").replace("\n", "<br>") | safe }}
+        </div>
     </body>
 </html>

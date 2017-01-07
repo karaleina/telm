@@ -36,10 +36,7 @@ def recording_list():
 def show_recording(recording_id):
     # Tutaj pobieram z bazy rekord o zadanym id i dostaję obiekt
     recording = ECGRecording.query.get(recording_id)
-    recording_data = ECGRecordingDataParser().parse(recording.url, 0, 1000)
-    recording_data_with_time = [
-        [float(index)] + recording_data_sample
-        for index, recording_data_sample in enumerate(recording_data)]
+    recording_data_with_time = get_raw_recording_data(recording_id, 0, 30)
     return render_template(
         'ecg_view.html',
         recording=recording,
@@ -51,12 +48,21 @@ def show_recording(recording_id):
 def get_recording_data(recording_id):
     start_time = int(request.args.get('from'))
     end_time = int(request.args.get('to'))
+    return jsonify({'recordingData': get_raw_recording_data(recording_id, start_time, end_time)})
+
+
+def get_raw_recording_data(recording_id, start_time, end_time):
     recording = ECGRecording.query.get(recording_id)
-    recording_data = ECGRecordingDataParser().parse(recording.url, start_time, end_time)
+
+    from_sample = max(0, start_time * recording.frequency)
+    to_sample = min(recording.sample_count - 1, end_time * recording.frequency)
+
+    recording_data = ECGRecordingDataParser().parse(recording.url, from_sample, to_sample)
     recording_data_with_time = [
-        [float(start_time + index)] + recording_data_sample
+        [(from_sample + index) / float(recording.frequency)] + recording_data_sample
         for index, recording_data_sample in enumerate(recording_data)]
-    return jsonify({'recordingData': recording_data_with_time})
+
+    return recording_data_with_time
 
 
 # Uruchamia aplikację, jeśli plik nie jest importowany, tylko uruchamiany
