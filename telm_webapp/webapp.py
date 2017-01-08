@@ -5,6 +5,7 @@
 from flask import Flask, jsonify, render_template, request
 from telm_webapp.database.configuration import db
 from telm_webapp.database.models import ECGRecording
+from telm_webapp.medical.qrs_detector import QRSDetector
 from telm_webapp.parsers.ecg_recording_data_parser import ECGRecordingDataParser
 
 # Konstruktor klasy Flask - reprezentuje aplikację webową
@@ -36,11 +37,13 @@ def recording_list():
 def show_recording(recording_id):
     # Tutaj pobieram z bazy rekord o zadanym id i dostaję obiekt
     recording = ECGRecording.query.get(recording_id)
-    recording_data_with_time = get_raw_recording_data(recording_id, 0, 30)
+    recording_data_with_time = get_raw_recording_data(recording, 0, 30)
+
     return render_template(
         'ecg_view.html',
         recording=recording,
-        recording_data=recording_data_with_time)
+        recording_data=recording_data_with_time,
+        labels=calculate_qrs_labels(recording, recording_data_with_time))
 
 
 # Widok służący do zwracania danych z danego przedziału czasu
@@ -48,12 +51,18 @@ def show_recording(recording_id):
 def get_recording_data(recording_id):
     start_time = int(request.args.get('from'))
     end_time = int(request.args.get('to'))
-    return jsonify({'recordingData': get_raw_recording_data(recording_id, start_time, end_time)})
 
-
-def get_raw_recording_data(recording_id, start_time, end_time):
     recording = ECGRecording.query.get(recording_id)
+    recording_data_with_time = get_raw_recording_data(recording, start_time, end_time)
+    labels = calculate_qrs_labels(recording, recording_data_with_time)
 
+    return jsonify({
+        "recordingData": recording_data_with_time,
+        "labels": labels
+    })
+
+
+def get_raw_recording_data(recording, start_time, end_time):
     from_sample = max(0, start_time * recording.frequency)
     to_sample = min(recording.sample_count - 1, end_time * recording.frequency)
 
@@ -64,6 +73,25 @@ def get_raw_recording_data(recording_id, start_time, end_time):
 
     return recording_data_with_time
 
+
+def calculate_qrs_labels(recording, recording_data_with_time):
+    qrs_detector = QRSDetector()
+
+    labels = []
+
+    for plot_id in range(0, recording.plot_count):
+        recording_data_for_plot = [
+            recording_data_with_time[i][plot_id + 1]
+            for i in range(0, len(recording_data_with_time))]
+        zalamki_r, zalamki_q, zalamki_s, _ = qrs_detector.detect_qrs(recording_data_for_plot)
+        for zalamek_r in zalamki_r:
+            labels.append({"plotId": plot_id, "type": "R", "time": recording_data_with_time[zalamek_r[0]][0]})
+        for zalamek_q in zalamki_q:
+            labels.append({"plotId": plot_id, "type": "Q", "time": recording_data_with_time[zalamek_q[0]][0]})
+        for zalamek_s in zalamki_s:
+            labels.append({"plotId": plot_id, "type": "S", "time": recording_data_with_time[zalamek_s[0]][0]})
+
+    return labels
 
 # Uruchamia aplikację, jeśli plik nie jest importowany, tylko uruchamiany
 if __name__ == "__main__":

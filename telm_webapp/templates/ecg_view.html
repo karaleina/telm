@@ -36,7 +36,7 @@
         <div id="graph" style="width: 100%"></div>
 
         <script>
-            initDygraph({{ recording.id}}, {{ recording_data }});
+            initDygraph({{ recording.id }}, {{ recording_data }}, {{ labels | safe }});
             $('.duration-picker').duration_picker();
             initClickOnDurationPickers();
         </script>
