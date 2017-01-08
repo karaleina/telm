@@ -10,6 +10,34 @@ html, body, h1, h2, h3, h4, p, div, ol, ul, li {
     font-style: normal;
 }
 
+.main {
+    margin: 20px auto;
+    padding: 20px 10px 20px 10px;
+    width: 80%;
+    text-align: center;
+    background-color:  white;
+
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 40px auto;
+    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-size: 1.5em;/*24px*/
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
 img {
 	max-width: 100%;
 }
@@ -28,7 +56,7 @@ p {
 }
 
 a:hover {
-	color:  #0000cc;
+	color:  green;
 	text-decoration: underline;
 }
 
@@ -37,6 +65,8 @@ h1 {
 	font-weight: bold;
 	text-align: center;
 	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	width: 70%;
+	margin: 10px auto;
 }
 
 h2 {
@@ -44,7 +74,7 @@ h2 {
 	font-size: 1.875em;/*30px*/
 	font-weight: 80;
 	text-align: center;
-	color: white;
+	color: black;
 	width: 70%;
 	margin: 0 auto 0 auto;
 }
@@ -65,9 +95,10 @@ h3 {
 
 header {
 	background: #999999;
-	background: radial-gradient( circle, #000077, #000033);
+	background: radial-gradient( circle, #228B22, #008000);
 	padding: 20px 0 20px 0;
 	color: white;
+	margin: 0px auto;
 }
 
 
@@ -85,4 +116,108 @@ footer p a {
 footer p a:hover {
 	text-decoration: underline;
 	color: white;
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 40px auto;
+    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-size: 1.5em;/*24px*/
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+table a {
+    font-weight: normal;}
+
+.dashed {
+    text-align: left;
+    width: 70%;
+    position: relative;
+    padding: 40px 70px;
+    margin: 40px auto;
+}
+
+.main h2 {
+    margin: 60px auto 20px auto;
+    border-bottom: 3px dashed green;
+    font-weight: bold;
+    font-size: 1.875em;/*30px*/
+}
+
+.main p {
+    font-family: arial, sans-serif;
+    font-size: 1.5em;/*24px*/
+}
+
+header h1 {
+    font-size: 4.375em;/*70px*/
+	font-weight: bold;
+	text-align: center;
+	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	width: 70%;
+	margin: 10px auto;
+}
+
+#time-picker {
+    margin-left: 50px;
+    width: 30%;
+    padding: 10px 10px;
+}
+
+ul {
+    margin: 30px auto;
+}
+
+ul li {
+    decoration: none;
+    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	background: #999999;
+	background: radial-gradient( circle, white, #c9edcc);
+	font-weight: bold;
+	color: black;
+	display: inline;
+	padding: 8px 8px 8px 8px;
+	margin-right: 10px;
+	transition: all 0.2s ease;
+	border-radius: 10px;
+	position: relative;
+	top: 0px;
+
+    }
+
+.main table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+    margin: 40px auto;
+    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-size: 1.5em;/*24px*/
+}
+
+
+.main td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+.main th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+.main tr:nth-child(even) {
+    background-color: #dddddd;
 }

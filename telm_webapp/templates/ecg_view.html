@@ -15,34 +15,50 @@
         <!-- Javascript obsługujący stronę z widokiem ECG -->
         <script src="/static/ecg_view.js"></script>
     </head>
+
     <body>
-        <header><h1>Przebieg № {{ recording.id }}</h1></header>
-        <p>Nazwa przebiegu: {{ recording.name }}</p>
-        <p>Czas badania: {{ recording.timestamp }}</p>
+        <header><h1>Wizualizacja danych z badania № {{ recording.id }}</h1></header>
+        <div class="main">
+            <h2>Wykres</h2>
+            <div id="time-picker">
+                <div class="ui input">
+                    <span style="margin: auto; padding-right: 5px">Od:</span>
+                    <input type="text" id="start-time-picker" class="duration-picker" value="0">
+                </div>
+                <div class="ui input">
+                    <span style="margin: auto; padding-right: 5px">Do:</span>
+                    <input type="text" id="end-time-picker" class="duration-picker" value="30">
+                </div>
 
-        <div>
-            <div class="ui input">
-                <span style="margin: auto; padding-right: 5px">Od:</span>
-                <input type="text" id="start-time-picker" class="duration-picker" value="0">
+                <button id="change-time-range-button">Wczytaj</button>
             </div>
-            <div class="ui input">
-                <span style="margin: auto; padding-right: 5px">Do:</span>
-                <input type="text" id="end-time-picker" class="duration-picker" value="30">
+
+            <div id="graph" style="width: 100%; margin: 30px auto 60px auto;"></div>
+
+            <script>
+                initDygraph({{ recording.id }}, {{ recording_data }}, {{ labels | safe }});
+                $('.duration-picker').duration_picker();
+                initClickOnDurationPickers();
+            </script>
+
+            <h2>Informacje o badaniu: </h2>
+            <table>
+                <thead><tr><th>Parametr</th><th>Wartość</th></tr></thead>
+                <tbody>
+                    <tr><td>Nazwa badania:</td><td>{{ recording.name }}</td></tr>
+                    <tr><td>Czas rozpoczęcia badania:</td> <td>{{ recording.timestamp }}</td></tr>
+                    <tr><td>Liczba odprowadzeń:</td><td>{{ recording.plot_count }}</td></tr>
+                    <tr><td>Częstotliwość próbkowania:</td> <td>{{ recording.frequency }} [Hz]</td></tr>
+                    <tr><td>Czas trwania badania:</td><td>{{recording.frequency * recording.sample_count}}[s]</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Komentarz do badania:</h2>
+            <div class="dashed">
+                <div>
+                    <p><i>{{ recording.comment.replace("\n\n", "\n").replace("\n", "<br>") | safe }}</i></p>
+                </div>
             </div>
-
-            <button id="change-time-range-button">Wczytaj</button>
-        </div>
-
-        <div id="graph" style="width: 100%"></div>
-
-        <script>
-            initDygraph({{ recording.id }}, {{ recording_data }}, {{ labels | safe }});
-            $('.duration-picker').duration_picker();
-            initClickOnDurationPickers();
-        </script>
-
         <div>
-            {{ recording.comment.replace("\n\n", "\n").replace("\n", "<br>") | safe }}
-        </div>
     </body>
 </html>

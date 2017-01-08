@@ -6,18 +6,22 @@
       <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
-      <header><h1>Lista przebiegów EKG z przykładowej bazy danych: </h1></header>
-      <table>
-        <thead>
-          <tr><th>Nazwa</th><th>Czas</th></tr>
-        </thead>
-        <tbody>
-          <!-- Jinja - język szablonów zintegrowany z Flaskiem -->
-          {% for recording in recordings %}
-            <tr><td><a href="/recordings/{{recording.id}}/view" target="_blank">{{ recording.name }}</a></td><td>{{ recording.timestamp }}</td></tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <header><h1> Lista dostępnych rekordów badań </h1></header>
 
+
+      <div class="main">
+          <h2> Lista wykonanych badań EKG  </h2>
+            <table>
+            <thead>
+              <tr><th>№</th></th><th>Rekord</th><th>Czas badania</th></tr>
+            </thead>
+            <tbody>
+                    <!-- Jinja - język szablonów zintegrowany z Flaskiem -->
+                    {% for recording in recordings %}
+                    <tr><td>{{ recording.id }}</td><td><i><a href="/recordings/{{recording.id}}/view" target="_blank">{{ recording.name }}</i></a></td><td><i>{{ recording.timestamp }}</i></td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      </div>
   </body>
 </html>
