@@ -15,7 +15,6 @@ class HeaderParser(object):
             tokens = first_line.split()
 
             plot_count = int(tokens[1])
-            timestamp_string = tokens[4] + " " + tokens[5]
 
             comment_lines = []
 
@@ -28,10 +27,17 @@ class HeaderParser(object):
 
             return ECGRecording(
                 name=tokens[0],
-                timestamp=datetime.fromtimestamp(mktime(strptime(timestamp_string, "%H:%M:%S %d/%m/%Y"))),
+                timestamp=self._extract_timestamp(tokens),
                 url=header_url.replace(".hea", ".dat"),
                 plot_count=plot_count,
                 frequency=int(tokens[2]),
                 sample_count=int(tokens[3]),
                 comment='\n'.join(comment_lines)
             )
+
+    def _extract_timestamp(self, tokens):
+        if len(tokens) >= 5:
+            timestamp_string = tokens[4] + " " + tokens[5]
+            return datetime.fromtimestamp(mktime(strptime(timestamp_string, "%H:%M:%S %d/%m/%Y")))
+        else:
+            return None
