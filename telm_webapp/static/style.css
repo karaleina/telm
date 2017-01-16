@@ -95,7 +95,7 @@ h3 {
 
 header {
 	background: #999999;
-	background: radial-gradient( circle, #228B22, #008000);
+	background: radial-gradient( circle, #9fea98, #008000);
 	padding: 20px 0 20px 0;
 	color: white;
 	margin: 0px auto;
@@ -145,8 +145,8 @@ table a {
     text-align: left;
     width: 70%;
     position: relative;
-    padding: 40px 70px;
-    margin: 40px auto;
+    padding: 10px 70px;
+    margin: 10px auto;
 }
 
 .main h2 {
