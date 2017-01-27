@@ -16,8 +16,8 @@ db_in_app.create_all()
 
 patients = [
     ECGPatient(name='Jan', surname='Kowalski'),
-    ECGPatient(name='Magda', surname='Biomedyczna'),
-    ECGPatient(name='Karolina', surname='Biomedyczna'),
+    ECGPatient(name='Magda', surname='Jaka'),
+    ECGPatient(name='Aleksandra', surname='Biomedyczna'),
     ECGPatient(name='Adam', surname='Malinowski'),
     ECGPatient(name='Marcin', surname='Mucha')
 ]

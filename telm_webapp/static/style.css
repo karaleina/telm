@@ -177,10 +177,10 @@ header h1 {
 }
 
 ul {
-    margin: 30px auto;
+    margin: 0px auto;
 }
 
-ul li {
+ ul li {
     decoration: none;
     font-family: Raleway, Calibri, Tahoma, sans-serif;
 	background: #999999;
@@ -189,11 +189,10 @@ ul li {
 	color: black;
 	display: inline;
 	padding: 8px 8px 8px 8px;
-	margin-right: 10px;
+	margin: auto;
 	transition: all 0.2s ease;
 	border-radius: 10px;
-	position: relative;
-	top: 0px;
+	/*position: relative;*/
 
     }
 

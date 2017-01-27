@@ -20,6 +20,11 @@
 
     <body>
         <header><h1>Wizualizacja danych z badania № {{ recording.id }}</h1></header>
+
+        <ul>
+            <li><i><a href="/" target="_blank">Powrót do listy badań</i></a></li>
+        </ul>
+
         <div class="main">
             <h2>Wykres</h2>
             <div id="time-picker">
@@ -38,11 +43,19 @@
             <div id="graph" style="width: 100%; margin: 30px auto 60px auto;"></div>
 
             <div>
+
+                <h2>Podstawowa analiza RR</h2>
 	            <table>
+                    <tr>
+                        <th>Numer odprowadzenia</th>
+                        <th>Odstęp RR [s]</th>
+                        <th>Liczba uderzeń [1/s]</th>
+                    </tr>
                     {% for rr_means_for_plot in RR_means %}
                     <tr>
                         <td>Odprowadzenie {{ loop.index }}</td>
                         <td id="rr_means_{{ loop.index - 1}}">{{ rr_means_for_plot }}</td>
+                         <td id="rr_means_{{ loop.index - 1}}">{{ 60/rr_means_for_plot }}</td>
                     </tr>
                     {% endfor %}
                 </table>
