@@ -37,8 +37,15 @@ function changeData(startTime, endTime) {
     $.get(getRecordingUrl, function(response) {
         graph.updateOptions({ file: response.recordingData });
         graph.setAnnotations(qrsLabelsToAnnotations(response.labels));
+        console.log(response);
+        for (var plotId = 0; plotId < response.RR_means.length; plotId++) {
+	        var mean_rr_for_plot = response.RR_means[plotId];
+	        $("#rr_means_" + plotId).html(mean_rr_for_plot);
+        }
     });
 }
+
+
 
 function initClickOnDurationPickers() {
     $("#change-time-range-button").click(function() {

@@ -38,13 +38,16 @@ def show_recording(recording_id):
     # Tutaj pobieram z bazy rekord o zadanym id i dostaję obiekt
     recording = ECGRecording.query.get(recording_id)
     recording_data_with_time = get_raw_recording_data(recording, 0, 30)
+    labels = calculate_qrs_labels(recording, recording_data_with_time)
+    RR_means = calculate_rr(recording.plot_count, labels)
 
     return render_template(
         'ecg_view.html',
         recording=recording,
         recording_data=recording_data_with_time,
-        labels=calculate_qrs_labels(recording, recording_data_with_time))
-
+        labels=labels,
+        RR_means=RR_means
+    )
 
 # Widok służący do zwracania danych z danego przedziału czasu
 @app.route("/recordings/<int:recording_id>")
@@ -55,12 +58,33 @@ def get_recording_data(recording_id):
     recording = ECGRecording.query.get(recording_id)
     recording_data_with_time = get_raw_recording_data(recording, start_time, end_time)
     labels = calculate_qrs_labels(recording, recording_data_with_time)
+    RR_means = calculate_rr(recording.plot_count, labels)
 
     return jsonify({
         "recordingData": recording_data_with_time,
-        "labels": labels
+        "labels": labels,
+        "RR_means": RR_means
     })
 
+def calculate_rr(plot_count, labels):
+
+    czasy_zalamkow_rr_per_plot = [[] for i in range(0, plot_count)]
+    for zalamek in labels:
+        if zalamek['type'] == 'R' :
+            plot_zalamka = zalamek['plotId']
+            czas_zalamka = zalamek['time']
+            czasy_zalamkow_rr_per_plot[plot_zalamka].append(czas_zalamka)
+
+    return [float(sum_of_differences(czasy_zalamkow)) / float(len(czasy_zalamkow)-1)
+            for czasy_zalamkow in czasy_zalamkow_rr_per_plot]
+
+
+
+def sum_of_differences(array):
+    sum = 0
+    for i in range(1, len(array)):
+        sum += array[i] - array[i-1]
+    return sum
 
 def get_raw_recording_data(recording, start_time, end_time):
     from_sample = max(0, start_time * recording.frequency)

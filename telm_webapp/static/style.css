@@ -24,7 +24,7 @@ table {
     border-collapse: collapse;
     width: 100%;
     margin: 40px auto;
-    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+    font-family: Raleway, Calibri, Tahoma, sans-serif; /*"Segoe UI", "Helvetica Neue", Helvetica, */
 	font-size: 1.5em;/*24px*/
 }
 
@@ -43,7 +43,7 @@ img {
 }
 
 a {
-	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-family: , alewayCalibri, Tahoma, sans-serif;
 	font-size: 1em;/*16px*/
 	font-weight: bold;
 	text-decoration: none;
@@ -51,7 +51,7 @@ a {
 }
 
 p {
-	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-family: Raleway, Calibri, Tahoma, sans-serif;
 	font-size: 1em;/*16px*/
 }
 
@@ -64,13 +64,13 @@ h1 {
 	font-size: 4.375em;/*70px*/
 	font-weight: bold;
 	text-align: center;
-	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-family: Raleway, Calibri, Tahoma, sans-serif;
 	width: 70%;
 	margin: 10px auto;
 }
 
 h2 {
-	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-family: Raleway, Calibri, Tahoma, sans-serif;
 	font-size: 1.875em;/*30px*/
 	font-weight: 80;
 	text-align: center;
@@ -88,7 +88,7 @@ h3 {
 	font-weight: normal;
 	text-align: center;
 	border-bottom: 1px solid #555555;
-	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-family: Calibri, Tahoma, sans-serif;
 	margin: 20px 0 20px 0;
 }
 
@@ -124,7 +124,7 @@ table {
     border-collapse: collapse;
     width: 100%;
     margin: 40px auto;
-    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+    font-family: Raleway, Calibri, Tahoma, sans-serif;
 	font-size: 1.5em;/*24px*/
 }
 
@@ -165,7 +165,7 @@ header h1 {
     font-size: 4.375em;/*70px*/
 	font-weight: bold;
 	text-align: center;
-	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+	font-family: Raleway, Calibri, Tahoma, sans-serif;
 	width: 70%;
 	margin: 10px auto;
 }
@@ -182,7 +182,7 @@ ul {
 
 ul li {
     decoration: none;
-    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+    font-family: Raleway, Calibri, Tahoma, sans-serif;
 	background: #999999;
 	background: radial-gradient( circle, white, #c9edcc);
 	font-weight: bold;
@@ -202,7 +202,7 @@ ul li {
     border-collapse: collapse;
     width: 70%;
     margin: 40px auto;
-    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+    font-family: Calibri, Tahoma, sans-serif;
 	font-size: 1.5em;/*24px*/
 }
 
