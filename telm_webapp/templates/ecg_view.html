@@ -71,6 +71,7 @@
             <table>
                 <thead><tr><th>Parametr</th><th>Wartość</th></tr></thead>
                 <tbody>
+                    <tr><td>Imię i nazwisko pacjenta:</td><td>{{ recording.patient.name }} {{ recording.patient.surname }}</td></tr>
                     <tr><td>Nazwa badania:</td><td>{{ recording.name }}</td></tr>
                     <tr><td>Czas rozpoczęcia badania:</td> <td>{{ recording.timestamp }}</td></tr>
                     <tr><td>Liczba odprowadzeń:</td><td>{{ recording.plot_count }}</td></tr>
