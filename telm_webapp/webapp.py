@@ -2,9 +2,10 @@
 
 # Flask to  jest framework (biblioteka) do aplikacji webowych. (Flask to klasa pakietu flask).
 # render_template to funkcja, która na podstawie szablonu generuje html (importujemy konkretną funkcję z Flaska).
+from datetime import datetime
 from flask import Flask, jsonify, render_template, request
 from telm_webapp.database.configuration import db
-from telm_webapp.database.models import ECGRecording
+from telm_webapp.database.models import ECGPatient, ECGRecording
 from telm_webapp.medical.qrs_detector import QRSDetector
 from telm_webapp.parsers.ecg_recording_data_parser import ECGRecordingDataParser
 
@@ -28,9 +29,24 @@ db_in_app = db
 def recording_list():
     # Pobiera z bazy wszystkie rekordy ECG i zwraca jako tablica obiektów tej samej klasy
     # Query to zapytanie do bazy danych = "daj mi wszystkie rekordingi jakie są w bazie"
-    recordings = ECGRecording.query.all()
+    name = request.args.get('name')
+    surname = request.args.get('surname')
+    from_date = request.args.get('from_date')
+    to_date = request.args.get('to_date')
+
+    recordings = db.session.query(ECGRecording).join(ECGPatient)
+
+    if name:
+        recordings = recordings.filter(ECGPatient.name == name)
+    if surname:
+        recordings = recordings.filter(ECGPatient.surname == surname)
+    if from_date:
+        recordings = recordings.filter(ECGRecording.timestamp >= from_date)
+    if to_date:
+        recordings = recordings.filter(ECGRecording.timestamp <= to_date)
+
     # Renderuje html na podstawie szablonu
-    return render_template('main.html', recordings=recordings)
+    return render_template('main.html', recordings=recordings.all())
 
 
 @app.route("/recordings/<int:recording_id>/view")
@@ -120,4 +136,3 @@ def calculate_qrs_labels(recording, recording_data_with_time):
 # Uruchamia aplikację, jeśli plik nie jest importowany, tylko uruchamiany
 if __name__ == "__main__":
     app.run()
- 

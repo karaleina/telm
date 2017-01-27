@@ -7,7 +7,7 @@ import urllib2
 
 recording_names = urllib2.urlopen("https://www.physionet.org/physiobank/database/ltstdb/RECORDS").read().split()
 
-for recording_name in recording_names[4:6]:
+for recording_name in recording_names[0:6]:
     # TODO usuwamy to gdy zaczniemy wspierac pliki z 3 plotami
     if recording_name.startswith("s2"):
         header_file = recording_name + ".hea"

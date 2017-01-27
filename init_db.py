@@ -14,7 +14,13 @@ from telm_webapp.webapp import db_in_app
 # Stworzenie tabel bazodanowych
 db_in_app.create_all()
 
-patient = ECGPatient(name='Magda', surname='Jaka', pesel='93071612312')
+patients = [
+    ECGPatient(name='Jan', surname='Kowalski'),
+    ECGPatient(name='Magda', surname='Biomedyczna'),
+    ECGPatient(name='Karolina', surname='Biomedyczna'),
+    ECGPatient(name='Adam', surname='Malinowski'),
+    ECGPatient(name='Marcin', surname='Mucha')
+]
 
 recordings_directory = "downloads/"
 data_files = os.listdir(recordings_directory)
@@ -26,11 +32,13 @@ header_paths = [
 
 header_parser = HeaderParser()
 
-for header_path in header_paths:
+for index, header_path in enumerate(header_paths):
+    patient = patients[index % len(patients)]
     patient.recordings.append(header_parser.parse_header(header_path))
 
 
 # Pętla po nagraniach, która dodaje kolejne rekordy do sesji (transakcji)
 #  i jak już wszystkie doda, to robi commit i dodaje do bazy danych
-db_in_app.session.add(patient)
+for patient in patients:
+    db_in_app.session.add(patient)
 db_in_app.session.commit()

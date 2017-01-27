@@ -64,15 +64,13 @@ class ECGPatient(db.Model):
     # Kolumna typu string (to może być nazwa, opis)
     name = db.Column(db.String(1024))
     surname = db.Column(db.String(1024))
-    pesel = db.Column(db.String(11))
     recordings = db.relationship("ECGRecording", backref="patient")
 
     # Konstruktor który służy do dodawania rzeczy do bazy danych
-    def __init__(self, name, surname, pesel):
+    def __init__(self, name, surname):
         self.name = name
         self.surname = surname
-        self.pesel = pesel
 
     # Dzięki tej metodzie można wypisywać obiekty na konsolę jako string
     def __repr__(self):
-        return '<ECGPacjent %s>' % self.name
+        return '<ECGPacjent %s>' % (self.name + " " + self.surname)
