@@ -42,13 +42,36 @@ function validateForm() {
         alert("Wpisz nazwiskko");
         return false;
     }
-    if (document.getElementById("dlgFileHeader").value == "") {
+    var header = document.getElementById("dlgFileHeader").value
+    var dat = document.getElementById("dlgFileDat").value
+
+    if (header.length > 4) {
+        if (header.substr(header.lenght - 4, 4).toLowerCase() == ".hea") {
+
+        return true
+        }
+
+        alert("Dołącz poprawny plik nagłówkowy");
+        return false;
+    }
+    else {
+
         alert("Dołącz plik nagłówkowy");
         return false;
     }
-    if (document.getElementById("dlgFileDat").value == "") {
-        alert("Dołacz plik z danymi");
+
+    if (dat.length > 4) {
+        if (dat.substr(dat.lenght - 4, 4).toLowerCase() == ".dat") {
+
+        return true
+        }
+
+        alert("Dołącz poprawny plik z danymi");
         return false;
     }
+    else {
 
+        alert("Dołącz plik z danymi");
+        return false;
+    }
 }
