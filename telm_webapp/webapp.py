@@ -2,13 +2,18 @@
 
 # Flask to  jest framework (biblioteka) do aplikacji webowych. (Flask to klasa pakietu flask).
 # render_template to funkcja, która na podstawie szablonu generuje html (importujemy konkretną funkcję z Flaska).
+import os
 from datetime import datetime
 from flask import Flask, jsonify, render_template, request
+from flask import url_for
+from werkzeug.utils import secure_filename, redirect
+
+from telm_webapp.parsers.header_parser import HeaderParser
 from telm_webapp.database.configuration import db
 from telm_webapp.database.models import ECGPatient, ECGRecording
 from telm_webapp.medical.qrs_detector import QRSDetector
 from telm_webapp.parsers.ecg_recording_data_parser import ECGRecordingDataParser
-
+from telm_webapp.database.db_search import findOrCreateNewPatient
 # Konstruktor klasy Flask - reprezentuje aplikację webową
 app = Flask(__name__)
 
@@ -16,6 +21,9 @@ app = Flask(__name__)
 # (lub ma być, bo jak nie ma to tworzymy)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ecg-database.sqlite'
 
+UPLOAD_FOLDER = 'downloads'
+ALLOWED_EXTENSIONS = set(['hea', 'dat'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Przypisuje aplikację do bazy danych.
 db.app = app
 db.init_app(app)
@@ -63,7 +71,52 @@ def show_recording(recording_id):
         recording_data=recording_data_with_time,
         labels=labels,
         RR_means=RR_means
-    )
+    )\
+
+@app.route("/new_patient", methods=['POST'])
+def new_recording():
+    name = request.form['name']
+    surname = request.form['surname']
+    # file_header = request.args.get('fileHeader')
+    # file_dat = request.args.get('fileDat')
+
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'fileHeader' not in request.files:
+            return jsonify({
+                "error": "error"
+                })
+        if 'fileDat' not in request.files:
+            return jsonify({
+                "error": "error"
+                })
+
+        file = request.files['fileHeader']
+        fileDat = request.files['fileDat']
+
+        if file.filename == '':
+            return jsonify({
+                "error": "error"
+            })
+
+        if file and allowed_file(file.filename) and fileDat and allowed_file(fileDat.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filenameDat = secure_filename(fileDat.filename)
+            fileDat.save(os.path.join(app.config['UPLOAD_FOLDER'], filenameDat))
+
+            header_parser = HeaderParser()
+            patient = findOrCreateNewPatient(name, surname, db_in_app)
+            patient.recordings.append(header_parser.parse_header(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+            db_in_app.session.commit()
+
+            res = redirect("/")
+            res.data = ""
+            return res
+        else :
+            res = redirect("/")
+            res.data = ""
+            return res
 
 # Widok służący do zwracania danych z danego przedziału czasu
 @app.route("/recordings/<int:recording_id>")
@@ -132,6 +185,11 @@ def calculate_qrs_labels(recording, recording_data_with_time):
             labels.append({"plotId": plot_id, "type": "S", "time": recording_data_with_time[zalamek_s[0]][0]})
 
     return labels
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Uruchamia aplikację, jeśli plik nie jest importowany, tylko uruchamiany
 if __name__ == "__main__":

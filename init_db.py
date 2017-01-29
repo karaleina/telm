@@ -29,7 +29,11 @@ header_paths = [
     os.path.join(recordings_directory, data_file_path)
     for data_file_path in data_files
     if '.hea' in data_file_path]
+    # if '.dat' in data_file_path]
 
+print data_files
+
+print header_paths
 header_parser = HeaderParser()
 
 for index, header_path in enumerate(header_paths):

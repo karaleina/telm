@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 # Obiekt bazy danych skonfigurowany przez aplikację
-from telm_webapp.webapp import db_in_app
 from telm_webapp.database.models import *
 
 # klasa reprezentująca datę wraz z godziną
@@ -22,6 +21,21 @@ def searchInDb( pesel, recordingDate ):
 		print(r.name)
 	return
 	
-	
+
+def findOrCreateNewPatient(patientName, patientSurname, db):
+
+    patient = ECGPatient.query.filter(ECGPatient.name == patientName).filter(ECGPatient.surname == patientSurname).first()
+    if patient:
+        print "found"
+        print patientName
+
+    else:
+        print "not found"
+        print patientName
+        patient = ECGPatient(name=patientName, surname=patientSurname)
+        db.session.add(patient)
+        db.session.commit()
+
+    return patient
 # przykład użycia
-searchInDb("1", datetime(2015, 6, 12))
+# searchInDb("1", datetime(2015, 6, 12))
