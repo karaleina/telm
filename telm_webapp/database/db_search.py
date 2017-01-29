@@ -25,13 +25,7 @@ def searchInDb( pesel, recordingDate ):
 def findOrCreateNewPatient(patientName, patientSurname, db):
 
     patient = ECGPatient.query.filter(ECGPatient.name == patientName).filter(ECGPatient.surname == patientSurname).first()
-    if patient:
-        print "found"
-        print patientName
-
-    else:
-        print "not found"
-        print patientName
+    if not patient:
         patient = ECGPatient(name=patientName, surname=patientSurname)
         db.session.add(patient)
         db.session.commit()

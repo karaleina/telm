@@ -26,11 +26,6 @@ function ClearDialogFields() {
      document.getElementById("dlgFileDat").value = "";
 }
 
-function notifyUploadSuccess() {
-
-    closeDialog();
-    alert('Pomiar został dodany');
-}
 
 function validateForm() {
 

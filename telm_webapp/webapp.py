@@ -22,7 +22,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ecg-database.sqlite'
 
 UPLOAD_FOLDER = 'downloads'
-ALLOWED_EXTENSIONS = set(['hea', 'dat'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Przypisuje aplikację do bazy danych.
 db.app = app
@@ -81,26 +80,13 @@ def new_recording():
     # file_dat = request.args.get('fileDat')
 
     if request.method == 'POST':
-        # check if the post request has the file part
-        if 'fileHeader' not in request.files:
-            return jsonify({
-                "error": "error"
-                })
-        if 'fileDat' not in request.files:
-            return jsonify({
-                "error": "error"
-                })
 
         file = request.files['fileHeader']
         fileDat = request.files['fileDat']
 
-        if file.filename == '':
-            return jsonify({
-                "error": "error"
-            })
-
-        if file and allowed_file(file.filename) and fileDat and allowed_file(fileDat.filename):
+        if file and fileDat:
             filename = secure_filename(file.filename)
+            # zapisujemy plik pod sciezka (katalog projektu)/downloads/nazwapliku.header
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             filenameDat = secure_filename(fileDat.filename)
             fileDat.save(os.path.join(app.config['UPLOAD_FOLDER'], filenameDat))
@@ -205,9 +191,6 @@ def calculate_qrs_labels(recording, recording_data_with_time):
     return labels
 
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Uruchamia aplikację, jeśli plik nie jest importowany, tylko uruchamiany
 if __name__ == "__main__":
