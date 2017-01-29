@@ -28,7 +28,7 @@ python downloader.py
 Wykonaj `python init_db.py`. Ten skrypt stworzy bazę
 danych SQLite i załaduje do niej przykładowe dane.
 Jeśli plik ten ulegnie modyfikacji należy skasować plik ecg-database.sqlite
-i wygenerować go ponownie przy użyciu 'pyhton init_db.py'
+i wygenerować go ponownie przy użyciu `python init_db.py`
 
 4. Uruchomienie aplikacji w trybie developerskim
 
