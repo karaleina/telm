@@ -46,7 +46,7 @@ function validateForm() {
     var dat = document.getElementById("dlgFileDat").value
 
     if (header.length > 4) {
-        if (header.substr(header.lenght - 4, 4).toLowerCase() == ".hea") {
+        if (header.substr(header.length - 4, 4).toLowerCase() == ".hea") {
 
         return true
         }
@@ -61,7 +61,7 @@ function validateForm() {
     }
 
     if (dat.length > 4) {
-        if (dat.substr(dat.lenght - 4, 4).toLowerCase() == ".dat") {
+        if (dat.substr(dat.length - 4, 4).toLowerCase() == ".dat") {
 
         return true
         }
