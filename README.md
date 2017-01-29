@@ -15,14 +15,22 @@ Zainstaluj Pythona 2.7.
 
 Wykonaj `pip install -r requirements.txt`.
 
-2. Inicjalizacja bazy danych
+2. Ściągnięcie plików z Long-Term ST Database
+
+Wejdź do katalogu downloads/ i uruchom skrypt downloader.py.
+Pobranie plików z bazy może potrwać kilka minut.
+
+cd downloads/
+python downloader.py
+
+3. Inicjalizacja bazy danych
 
 Wykonaj `python init_db.py`. Ten skrypt stworzy bazę
 danych SQLite i załaduje do niej przykładowe dane.
 Jeśli plik ten ulegnie modyfikacji należy skasować plik ecg-database.sqlite
 i wygenerować go ponownie przy użyciu 'pyhton init_db.py'
 
-3. Uruchomienie aplikacji w trybie developerskim
+4. Uruchomienie aplikacji w trybie developerskim
 
 W trybie developerskim wszystkie zmiany w kodzie powodują
 automatyczne przeładowanie aplikacji. W katalogu głównym
@@ -33,7 +41,7 @@ Windows: `run-dev-server.bat`
 
 Linux: `./run-dev-server.sh`
 
-4. Uruchomienie aplikacji w trybie produkcyjnym
+5. Uruchomienie aplikacji w trybie produkcyjnym
 
 Aby uruchomić aplikację, wykonaj `python -m telm_webapp.webapp`.
 Możesz ją otworzyć w przeglądarce wpisując w pasek adresu: http://localhost:5000/
