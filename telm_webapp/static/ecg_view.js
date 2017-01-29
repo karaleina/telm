@@ -39,8 +39,14 @@ function changeData(startTime, endTime) {
         graph.setAnnotations(qrsLabelsToAnnotations(response.labels));
         console.log(response);
         for (var plotId = 0; plotId < response.RR_means.length; plotId++) {
-	        var mean_rr_for_plot = response.RR_means[plotId];
-	        $("#rr_means_" + plotId).html(mean_rr_for_plot);
+	        var mean_rr_info_for_plot = response.RR_means[plotId];
+	        var mean_distance = mean_rr_info_for_plot['distance'];
+	        var mean_frequency = mean_rr_info_for_plot['frequency'];
+	        var diagnosis = mean_rr_info_for_plot['diagnosis'];
+
+	        $("#rr_means_distance_" + plotId).html(mean_distance);
+	        $("#rr_means_frequency_" + plotId).html(mean_frequency);
+	        $("#rr_means_diagnosis_" + plotId).html(diagnosis);
         }
     });
 }

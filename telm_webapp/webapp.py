@@ -136,18 +136,36 @@ def get_recording_data(recording_id):
     })
 
 def calculate_rr(plot_count, labels):
-
     czasy_zalamkow_rr_per_plot = [[] for i in range(0, plot_count)]
     for zalamek in labels:
-        if zalamek['type'] == 'R' :
+        if zalamek['type'] == 'R':
             plot_zalamka = zalamek['plotId']
             czas_zalamka = zalamek['time']
             czasy_zalamkow_rr_per_plot[plot_zalamka].append(czas_zalamka)
-
-    return [float(sum_of_differences(czasy_zalamkow)) / float(len(czasy_zalamkow)-1)
+    return [rr_means_info(float(sum_of_differences(czasy_zalamkow)) / float(len(czasy_zalamkow)-1))
             for czasy_zalamkow in czasy_zalamkow_rr_per_plot]
 
 
+def rr_means_info(rr_means):
+
+    if 60.0/rr_means > 100:
+        return {
+            'distance': rr_means,
+            'frequency': 60.0 / rr_means,
+            'diagnosis': 'tachykardia'
+        }
+    if 60.0/rr_means < 60 :
+        return {
+            'distance': rr_means,
+            'frequency': 60.0 / rr_means,
+            'diagnosis': 'barykardia'
+        }
+    else:
+        return {
+            'distance': rr_means,
+            'frequency': 60.0 / rr_means,
+            'diagnosis': 'norma'
+        }
 
 def sum_of_differences(array):
     sum = 0

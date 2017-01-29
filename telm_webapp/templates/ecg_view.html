@@ -50,12 +50,14 @@
                         <th>Numer odprowadzenia</th>
                         <th>Odstęp RR [s]</th>
                         <th>Liczba uderzeń [1/s]</th>
+                        <th>Diagnoza</th>
                     </tr>
                     {% for rr_means_for_plot in RR_means %}
                     <tr>
                         <td>Odprowadzenie {{ loop.index }}</td>
-                        <td id="rr_means_{{ loop.index - 1}}">{{ rr_means_for_plot }}</td>
-                         <td id="rr_means_{{ loop.index - 1}}">{{ 60/rr_means_for_plot }}</td>
+                        <td id="rr_means_distance_{{ loop.index - 1}}">{{ rr_means_for_plot['distance'] }}</td>
+                        <td id="rr_means_frequency_{{ loop.index - 1}}">{{ rr_means_for_plot['frequency'] }}</td>
+                        <td id="rr_means_diagnosis_{{ loop.index - 1}}">{{ rr_means_for_plot['diagnosis'] }}</td>
                     </tr>
                     {% endfor %}
                 </table>
