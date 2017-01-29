@@ -230,14 +230,18 @@ ul {
 .addPatient-button {
 		width: 200px;
 		height: 50px;
-		font-size: 25px;
+		font-size: 20px;
 		position: absolute;
 		right: 20px;
-
-
-
 }
 
+.backToMain-button {
+		width: 200px;
+		height: 50px;
+		font-size: 20px;
+		position: absolute;
+		left: 20px;
+}
 
 .close {
 	background: #606061;
