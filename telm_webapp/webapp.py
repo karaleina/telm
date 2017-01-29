@@ -144,7 +144,7 @@ def rr_means_info(rr_means):
         return {
             'distance': rr_means,
             'frequency': 60.0 / rr_means,
-            'diagnosis': 'barykardia'
+            'diagnosis': 'bradykardia'
         }
     else:
         return {
