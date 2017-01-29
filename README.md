@@ -15,10 +15,12 @@ Zainstaluj Pythona 2.7.
 
 Wykonaj `pip install -r requirements.txt`.
 
-2. Inicjalizacja bazy danch
+2. Inicjalizacja bazy danych
 
 Wykonaj `python init_db.py`. Ten skrypt stworzy bazę
 danych SQLite i załaduje do niej przykładowe dane.
+Jeśli plik ten ulegnie modyfikacji należy skasować plik ecg-database.sqlite
+i wygenerować go ponownie przy użyciu 'pyhton init_db.py'
 
 3. Uruchomienie aplikacji w trybie developerskim
 
